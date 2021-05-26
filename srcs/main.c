@@ -12,42 +12,21 @@
 
 #include "push_swap.h"
 
-/*int	is_empty(int **tab, size_t size)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < size)
-		if (tab[i++])
-			return (1);
-	return (0);
-}
-
-static int	is_sorted(int **tab, size_t size)
-{
-	size_t	i;
-
-	i = 0;
-	while (i++ < size - 1)
-		if (tab[i - 1] > tab[i])
-			return (0);
-	return (1);
-}*/
-
-int	is_empty(t_list *lst)
+int			is_empty(t_list *lst)
 {
 	if (!ft_lstsize(lst))
 		return (1);
 	return (0);
 }
 
-static int	is_sorted(t_list *lst)
+static int	is_sorted_incorder(t_list *lst)
 {
 	t_list	*tmp;
 
 	tmp = lst;
 	while (tmp->next)
 	{
+		//printf("%d - %d\n", *(int *)tmp->content, *(int *)tmp->next->content);
 		if (*(int *)tmp->content > *(int *)tmp->next->content)
 			return (0);
 		tmp = tmp->next;
@@ -55,7 +34,21 @@ static int	is_sorted(t_list *lst)
 	return (1);
 }
 
-static	int		ft_is_rep(char **tab)
+static int	is_sorted_decorder(t_list *lst)
+{
+	t_list	*tmp;
+
+	tmp = lst;
+	while (tmp->next)
+	{
+		if (*(int *)tmp->content < *(int *)tmp->next->content)
+			return (0);
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
+static int	ft_is_rep(char **tab)
 {
 	int	i;
 	int	j;
@@ -72,7 +65,7 @@ static	int		ft_is_rep(char **tab)
 	return (0);
 }
 
-static	int		ft_is_not_int(char **tab)
+static int	ft_is_not_int(char **tab)
 {
 	int	i;
 
@@ -85,24 +78,6 @@ static	int		ft_is_not_int(char **tab)
 	}
 	return (0);
 }
-
-/*static int	ft_get_int_tab(char **tab, t_stack *stack)
-{
-	size_t	i;
-
-	i = 0;
-	if (ft_is_not_int(&tab[1]) || ft_is_rep(&tab[1]))
-	{
-		ft_putstr_fd("Error\n", STDERR);
-		return (0);
-	}
-	while (i++ < stack->size)
-	{
-		stack->a[i - 1] = (int *)malloc(sizeof(int));
-		*stack->a[i - 1] = ft_atoi(tab[i]);
-	}
-	return (1);
-}*/
 
 static int	ft_tab_to_lst(char **tab, t_stack *stack)
 {
@@ -119,51 +94,43 @@ static int	ft_tab_to_lst(char **tab, t_stack *stack)
 	{
 		nb = (int *)malloc(sizeof(int));
 		*nb = ft_atoi(tab[i++]);
-		ft_lstadd_front(&stack->a, ft_lstnew(nb));
+		ft_lstadd_back(&stack->a, ft_lstnew(nb));
 	}
 	return (1);
 }
 
-/*void	print_tab(int *tab, size_t size)
-{
-	size_t	i;
-
-	i = 0;
-	printf("tab : ");
-	while (i < size)
-		printf("%d ", tab[i++]);
-	printf("\n");
-}*/
-
-void	print_lst(t_list *lst)
+static void	print_lst(t_list *lst)
 {
 	int	*nb;
 
 	printf("lst : ");
 	while (lst)
 	{
-		nb = (int *)lst->content;
-		printf("%d ", *nb);
+		if (lst->content)
+		{
+			nb = (int *)lst->content;
+			printf("%d ", *nb);
+		}
+		else
+			printf("(null) ");
 		lst = lst->next;
 	}
 	printf("\n");
 }
 
-/*void	print_tab_b(int **tab, size_t size)
+static void	print_lsts(t_stack *stack)
 {
-	size_t	i;
+	print_lst(stack->a);
+	print_lst(stack->b);
+}
 
-	i = 0;
-	printf("tab : ");
-	while (i++ < size)
-		if (tab[i - 1])
-			printf("%d ", *tab[i - 1]);
-		else
-			printf("(null) ");
-	printf("\n");
-}*/
+static void	clear_lsts(t_stack *stack)
+{
+	ft_lstclear(&stack->a, NULL);
+	ft_lstclear(&stack->b, NULL);
+}
 
-int init_stack(t_stack *stack, int size)
+static int	init_stack(t_stack *stack, int size)
 {
 	stack->size = size - 1;
 	stack->a = NULL;
@@ -171,25 +138,112 @@ int init_stack(t_stack *stack, int size)
 	return (1);
 }
 
-int	main(int argc, char **argv)
+static int	max(long pos[6])
+{
+	long	max;
+	int		i;
+
+	i = -1;
+	max = pos[i];
+	while (++i < 6)
+		if (pos[i] < (long)INT_MAX + 1 && pos[i] > max)
+			max = pos[i];
+	return (max);
+}
+
+static int	min(long pos[6])
+{
+	long	min;
+	int		i;
+
+	i = -1;
+	min = pos[i];
+	while (++i < 6)
+		if (pos[i] < (long)INT_MAX + 1 && pos[i] < min)
+			min = pos[i];
+	return (min);
+}
+
+static void	get_pos(t_stack *stack, long *pos)
+{
+	pos[A_1] = (long)INT_MAX + 1;
+	pos[B_1] = (long)INT_MAX + 1;
+	pos[A_2] = (long)INT_MAX + 1;
+	pos[B_2] = (long)INT_MAX + 1;
+	pos[A_N] = (long)INT_MAX + 1;
+	pos[B_N] = (long)INT_MAX + 1;
+	if (stack->a)
+		pos[A_1] = *(long *)stack->a->content;
+	if (stack->b)
+		pos[B_1] = *(long *)stack->b->content;
+	if (ft_lstsize(stack->a) > 1)
+		pos[A_2] = *(long *)stack->a->next->content;
+	if (ft_lstsize(stack->b) > 1)
+		pos[B_2] = *(long *)stack->b->next->content;
+	if (stack->a)
+		pos[A_N] = *(long *)ft_lstlast(stack->a)->content;
+	if (stack->b)
+		pos[B_N] = *(long *)ft_lstlast(stack->b)->content;
+}
+
+int			main(int argc, char **argv)
 {
 	t_stack	stack;
+	long	*pos;//[6];
 
 	if (argc > 1)
 	{
+		pos = (long *)malloc(sizeof(long) * 6);
 		if (!init_stack(&stack, argc))
 			return (0);
 		if ((ft_tab_to_lst(argv, &stack)))
 		{
-			print_lst(stack.a);
-			print_lst(stack.b);
-			if (is_sorted(stack.a))
-				ft_putstr_fd("a is sorted\n", STDOUT);
-			if (is_empty(stack.b))
-				ft_putstr_fd("b is empty\n", STDOUT);
-			sa(&stack);
-			print_lst(stack.a);
+			ft_putstr_fd("INIT\n", STDOUT);
+			print_lsts(&stack);
+			while (!is_sorted_incorder(stack.a) || !is_empty(stack.b))
+			{
+				get_pos(&stack, pos);
+				/* ROTATE */
+				if (pos[A_1] == max(pos) && pos[B_1] == min(pos))
+					rr(&stack);
+				else if (pos[A_1] == max(pos))
+					ra(&stack);
+				else if (pos[B_1] == min(pos))
+					rb(&stack);
+				/* REVERSE ROTATE */
+				else if (pos[A_N] == min(pos) && pos[B_N] == max(pos))
+					rrr(&stack);
+				else if (pos[A_N] == min(pos))
+					rra(&stack);
+				else if (pos[B_N] == max(pos))
+					rrb(&stack);
+				/* SWAP */
+				else if (pos[A_1] < (long)INT_MAX + 1 && pos[A_2] < (long)INT_MAX + 1 &&
+					pos[B_1] < (long)INT_MAX + 1 && pos[B_2] < (long)INT_MAX + 1 &&
+					pos[A_1] > pos[A_2] && pos[B_1] < pos[B_2])
+					ss(&stack);
+				else if (pos[A_1] < (long)INT_MAX + 1 && pos[A_2] < (long)INT_MAX + 1 &&
+					pos[A_1] > pos[A_2])
+					sa(&stack);
+				else if (pos[B_1] < (long)INT_MAX + 1 && pos[B_2] < (long)INT_MAX + 1 &&
+					pos[B_1] < pos[B_2])
+					sb(&stack);
+				/* PUSH */
+				else if (pos[A_1] < pos[B_1])
+					pb(&stack);
+				else if (pos[A_1] > pos[B_1])
+					pa(&stack);
+				else
+				{
+					ft_putstr_fd("break\n", STDERR);
+					print_lsts(&stack);
+					break ;
+				}
+			}
 		}
+		ft_putstr_fd("FINAL\n", STDOUT);
+		print_lsts(&stack);
+		clear_lsts(&stack);
 	}
 	return (0);
 }

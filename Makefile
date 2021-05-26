@@ -30,6 +30,9 @@ FSAN =			-fsanitize=address
 
 SRC =			main.c \
 				swap.c \
+				push.c \
+				rotate.c \
+				reverse_rotate.c \
 
 #SRC_BONUS =		main.c
 
