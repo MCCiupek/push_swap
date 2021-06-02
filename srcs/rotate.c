@@ -27,18 +27,18 @@ static int	ft_rotate(t_list **lst)
 
 int 		ra(t_stack *stack)
 {
-	ft_putstr_fd("ra", 1);
+	ft_putstr_fd("ra\n", 1);
 	return (ft_rotate(&stack->a));
 }
 
 int 		rb(t_stack *stack)
 {
-	ft_putstr_fd("rb", 1);
+	ft_putstr_fd("rb\n", 1);
 	return (ft_rotate(&stack->b));
 }
 
 int 		rr(t_stack *stack)
 {
-	ft_putstr_fd("rr", 1);
+	ft_putstr_fd("rr\n", 1);
 	return (ft_rotate(&stack->a) + ft_rotate(&stack->b));
 }

@@ -26,18 +26,18 @@ static int	ft_reverse_rotate(t_list **lst)
 
 int			rra(t_stack *stack)
 {
-	ft_putstr_fd("rra", 1);
+	ft_putstr_fd("rra\n", 1);
 	return (ft_reverse_rotate(&stack->a));
 }
 
 int			rrb(t_stack *stack)
 {
-	ft_putstr_fd("rrb", 1);
+	ft_putstr_fd("rrb\n", 1);
 	return (ft_reverse_rotate(&stack->b));
 }
 
 int			rrr(t_stack *stack)
 {
-	ft_putstr_fd("rrr", 1);
+	ft_putstr_fd("rrr\n", 1);
 	return (ft_reverse_rotate(&stack->a) + ft_reverse_rotate(&stack->b));
 }

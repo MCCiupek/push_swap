@@ -27,15 +27,15 @@ static int	ft_spaces(const char *str)
 	return (i);
 }
 
-long		ft_atol(const char *str)
+long long		ft_atol(const char *str)
 {
 	int		i;
 	int		signe;
-	long	nb;
+	long long	nb;
 
 	i = ft_spaces(str);
 	if (i == -1)
-		return ((long)INT_MAX + 1);
+		return ((long long)INT_MAX + 1);
 	signe = 1;
 	nb = 0;
 	if (str[i] == '+' || str[i] == '-')

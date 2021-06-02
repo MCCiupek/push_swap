@@ -28,7 +28,7 @@ typedef struct	s_list
 }				t_list;
 
 int				ft_atoi(const char *str);
-long			ft_atol(const char *str);
+long long			ft_atol(const char *str);
 float			ft_atof(const char *str);
 size_t			ft_arraysize(char **tab);
 int				ft_strlen(const char *str);
