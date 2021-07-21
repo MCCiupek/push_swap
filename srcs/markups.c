@@ -12,12 +12,21 @@
 
 #include "push_swap.h"
 
+void	*ft_lstcpy(void *ptr)
+{
+	void	*new;
+
+	new = (void *)malloc(sizeof(ptr));
+	new = ft_memcpy(new, ptr, sizeof(ptr));
+	return (new);
+}
+
 t_list	*ft_lstswaped(t_list *lst)
 {
 	t_list	*swaped_list;
 	t_list	*tmp;
 
-	swaped_list = lst;
+	swaped_list = ft_lstmap(lst, ft_lstcpy, free);
 	tmp = swaped_list->content;
 	swaped_list->content = swaped_list->next->content;
 	swaped_list->next->content = tmp;
@@ -34,6 +43,9 @@ int	swap_is_needed(t_list *lst)
 	swaped_list = ft_lstswaped(lst);
 	nb_false_bf_sa = count_false(lst);
 	nb_false_af_sa = count_false(swaped_list);
+	//print_lst(lst);
+	//print_lst(swaped_list);
+	ft_lstclear(&swaped_list, free);
 	if (nb_false_bf_sa > nb_false_af_sa)
 		return (1);
 	return (0);
@@ -49,7 +61,7 @@ void	update_markups(t_list *lst)
 			tmp = tmp->next;
 		else
 			break ;
-	get_markup(tmp);	
+	get_markup(tmp, lst);
 }
 
 int	count_false(t_list *lst)
@@ -68,13 +80,19 @@ int	count_false(t_list *lst)
 	return (i);
 }
 
-static int	get_markup(t_list *elem)
+int	get_markup(t_list *elem, t_list *head)
 {
 	int		cpt;
 	int		idx;
 	t_list	*tmp;
 
 	cpt = 0;
+	tmp = head;
+	while (tmp && tmp != elem)
+	{
+		((t_elem *)tmp->content)->markup = 0;
+		tmp = tmp->next;
+	}
 	idx = ((t_elem *)elem->content)->idx;
 	((t_elem *)elem->content)->markup = 1;
 	tmp = elem->next;
@@ -89,6 +107,8 @@ static int	get_markup(t_list *elem)
 		else
 			((t_elem *)tmp->content)->markup = 0;
 		tmp = tmp->next;
+		//if (!tmp)
+		//	tmp = head;
 	}
 	return (cpt);
 }
@@ -131,7 +151,7 @@ void	get_markups(t_list **lst)
 	tmp = *lst;
 	while (tmp)
 	{
-		((t_elem *)tmp->content)->nb_true = get_markup(tmp);
+		((t_elem *)tmp->content)->nb_true = get_markup(tmp, *lst);
 		tmp = tmp->next;
 	}
 	tmp = *lst;
@@ -139,7 +159,7 @@ void	get_markups(t_list **lst)
 	while (tmp)
 	{
 		if (((t_elem *)tmp->content)->is_head)
-			get_markup(tmp);
+			get_markup(tmp, *lst);
 		tmp = tmp->next;
 	}
 }

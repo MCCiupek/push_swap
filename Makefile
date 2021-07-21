@@ -26,6 +26,7 @@ SRC =			main2.c \
 				markups.c \
 				print.c \
 				utils.c \
+				sort.c \
 				check_args.c
 
 SRCS =			$(addprefix $(DIR_SRCS), $(SRC))

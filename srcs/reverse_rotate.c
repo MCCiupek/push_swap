@@ -18,9 +18,13 @@ static int	ft_reverse_rotate(t_list **lst)
 
 	if (is_empty(*lst))
 		return (1);
-	tmp = ft_lstlast(*lst);
-	tmp->prev->next = NULL;
+	tmp = ft_lstnew(ft_lstlast(*lst)->content);
 	ft_lstadd_front(lst, tmp);
+	tmp = *lst;
+	while (tmp->next->next)
+		tmp = tmp->next;
+	free(tmp->next);
+	tmp->next = NULL;
 	return (0);
 }
 

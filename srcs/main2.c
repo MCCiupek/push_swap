@@ -59,55 +59,13 @@ static void	get_position(t_list **lst)
 	}
 }
 
-static void	sorted_insert(t_stack *stack)
+static int dec_to_inc(t_stack *stack)
 {
-	if (is_empty(stack->a) || ((t_elem *)stack->a->content)->nb < ((t_elem *)stack->b->content)->nb)
-	{
-        pa(stack);
-        return ;
-    }
-	pb(stack);
-	sb(stack);
-	pa(stack);
-    sorted_insert(stack);
-    pb(stack);
-}
-
-void sort_stack(t_stack *stack)
-{
-	if (!is_empty(stack->a))
-	{
+	while (!is_empty(stack->a))
 		pb(stack);
-		sort_stack(stack);
-		sorted_insert(stack);
-    }
-}
-
-/*
-WHILE stack A has elements with "false" value in "Keep in Stack A" field
-      IF sa (swap a) is needed
-            perform sa (swap a) command
-            update markup
-      ELSE IF head element of stack A has "false" value in "Keep in Stack A" field
-            perform pb (push b) command
-      ELSE
-            perform ra (rotate a) command
-*/
-
-static void	ft_sort(t_stack *stack)
-{
-	while (count_false(stack->a))
-	{
-		if (swap_is_needed(stack->a))
-		{
-			sa(stack);
-			update_markups(stack->a);
-		}
-		else if (!((t_elem *)stack->a->content)->markup)
-			pb(stack);
-		else
-			ra(stack);
-	}
+	while (!is_empty(stack->b))
+		pa(stack);
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -117,11 +75,13 @@ int	main(int argc, char **argv)
 	init_stack(&stack, argc);
 	if (ft_tab_to_lst(argv, &stack))
 	{
+		if (is_sorted_decorder(stack.a))
+			return (dec_to_inc(&stack));
 		get_position(&stack.a);
 		get_markups(&stack.a);
-		print_lsts(&stack);
-		sort_stack(&stack);
-		print_lsts(&stack);
+		//print_lsts(&stack);
+		ft_sort(&stack);
+		//print_lsts(&stack);
 		clear_lsts(&stack);
 	}
 	return (0);

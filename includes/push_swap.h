@@ -48,6 +48,10 @@ typedef enum	e_pos
 	B_N
 }				t_pos;
 
+/* SORT */
+
+void			ft_sort(t_stack *stack);
+
 /* UTILS */
 
 int				is_empty(t_list *lst);
@@ -57,6 +61,9 @@ int				max(long long pos[6]);
 int				min(long long pos[6]);
 int				ft_islstmin(t_list *lst);
 t_list			**ft_lstidxminloc(t_list **lst, t_elem *elem, int index, int val);
+int				ft_rotate_a(t_stack *stack);
+int				ft_rotate_order(t_list *lst);
+int				ft_min_idx(t_list *lst);
 
 /* CHECK_ARGS */
 
@@ -71,7 +78,11 @@ void			print_lsts(t_stack *stack);
 
 /* MARKUPS */
 
+t_list			*ft_lstswaped(t_list *lst);
+int				swap_is_needed(t_list *lst);
+void			update_markups(t_list *lst);
 int				count_false(t_list *lst);
+int				get_markup(t_list *elem, t_list *head);
 void			get_markups(t_list **lst);
 
 /* OPERATIONS */
