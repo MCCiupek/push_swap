@@ -22,6 +22,15 @@
 
 # include "../libft/libft.h"
 
+typedef struct	s_elem
+{
+	int	nb;
+	int	idx;
+	int	markup;
+	int	nb_true;
+	int	is_head;
+}				t_elem;
+
 typedef struct	s_stack
 {
 	t_list		*a;
@@ -39,7 +48,34 @@ typedef enum	e_pos
 	B_N
 }				t_pos;
 
+/* UTILS */
+
 int				is_empty(t_list *lst);
+int				is_sorted_incorder(t_list *lst);
+int				is_sorted_decorder(t_list *lst);
+int				max(long long pos[6]);
+int				min(long long pos[6]);
+int				ft_islstmin(t_list *lst);
+t_list			**ft_lstidxminloc(t_list **lst, t_elem *elem, int index, int val);
+
+/* CHECK_ARGS */
+
+int				ft_is_rep(char **tab);
+int				ft_is_not_int(char **tab);
+int				ft_tab_to_lst(char **tab, t_stack *stack);
+
+/* PRINT */
+
+void			print_lst(t_list *lst);
+void			print_lsts(t_stack *stack);
+
+/* MARKUPS */
+
+int				count_false(t_list *lst);
+void			get_markups(t_list **lst);
+
+/* OPERATIONS */
+
 int				sa(t_stack *stack);
 int				sb(t_stack *stack);
 int				ss(t_stack *stack);

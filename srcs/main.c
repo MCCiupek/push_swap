@@ -12,125 +12,6 @@
 
 #include "push_swap.h"
 
-int			is_empty(t_list *lst)
-{
-	if (!lst)
-		return (1);
-	if (!ft_lstsize(lst))
-		return (1);
-	return (0);
-}
-
-static int	is_sorted_incorder(t_list *lst)
-{
-	t_list	*tmp;
-
-	if (!lst)
-		return (0);
-	tmp = lst;
-	while (tmp->next)
-	{
-		//printf("%d - %d\n", *(int *)tmp->content, *(int *)tmp->next->content);
-		if (*(int *)tmp->content > *(int *)tmp->next->content)
-			return (0);
-		tmp = tmp->next;
-	}
-	return (1);
-}
-
-static int	is_sorted_decorder(t_list *lst)
-{
-	t_list	*tmp;
-
-	if (!lst)
-		return (0);
-	tmp = lst;
-	while (tmp->next)
-	{
-		if (*(int *)tmp->content < *(int *)tmp->next->content)
-			return (0);
-		tmp = tmp->next;
-	}
-	return (1);
-}
-
-static int	ft_is_rep(char **tab)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (tab[i])
-	{
-		j = i + 1;
-		while (tab[j])
-			if (ft_atol(tab[i]) == ft_atol(tab[j++]))
-				return (1);
-		i++;
-	}
-	return (0);
-}
-
-static int	ft_is_not_int(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		if (ft_atol(tab[i]) > INT_MAX || ft_atol(tab[i]) < INT_MIN)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-static int	ft_tab_to_lst(char **tab, t_stack *stack)
-{
-	int	i;
-	int	*nb;
-
-	i = 1;
-	if (ft_is_not_int(&tab[1]) || ft_is_rep(&tab[1]))
-	{
-		ft_putstr_fd("Error\n", STDERR);
-		return (0);
-	}
-	while (tab[i])
-	{
-		nb = (int *)malloc(sizeof(int));
-		*nb = ft_atoi(tab[i++]);
-		ft_lstadd_back(&stack->a, ft_lstnew(nb));
-	}
-	return (1);
-}
-
-static void	print_lst(t_list *lst)
-{
-	int	*nb;
-
-	printf("lst : ");
-	while (lst)
-	{
-		if (lst->content)
-		{
-			nb = (int *)lst->content;
-			printf("%d ", *nb);
-		}
-		else
-			printf("(null) ");
-		lst = lst->next;
-	}
-	//printf("\t\t [%d]", is_sorted_incorder(lst));
-	printf("\n");
-}
-
-static void	print_lsts(t_stack *stack)
-{
-	print_lst(stack->a);
-	print_lst(stack->b);
-}
-
 static void	clear_lsts(t_stack *stack)
 {
 	ft_lstclear(&stack->a, NULL);
@@ -143,32 +24,6 @@ static int	init_stack(t_stack *stack, int size)
 	stack->a = NULL;
 	stack->b = NULL;
 	return (1);
-}
-
-static int	max(long long pos[6])
-{
-	long long	max;
-	int		i;
-
-	i = -1;
-	max = pos[i];
-	while (++i < 6)
-		if (pos[i] < (long long)INT_MAX + 1 && pos[i] > max)
-			max = pos[i];
-	return (max);
-}
-
-static int	min(long long pos[6])
-{
-	long long	min;
-	int		i;
-
-	i = -1;
-	min = pos[i];
-	while (++i < 6)
-		if (pos[i] < (long long)INT_MAX + 1 && pos[i] < min)
-			min = pos[i];
-	return (min);
 }
 
 static void	get_pos(t_stack *stack, long long *pos)
@@ -261,7 +116,7 @@ int			main(int argc, char **argv)
 	t_stack		stack;
 	long long	*pos;
 	int			cpt;
-	int			tmp;
+	//int			tmp;
 
 	cpt = 0;
 	if (argc > 1)
@@ -271,8 +126,7 @@ int			main(int argc, char **argv)
 			return (0);
 		if ((ft_tab_to_lst(argv, &stack)))
 		{
-			ft_putstr_fd("INIT\n", STDOUT);
-			print_lsts(&stack);
+			//print_lsts(&stack);
 			while ((!is_sorted_incorder(stack.a) || !is_empty(stack.b)) && cpt++ < argc * argc)
 			{
 				get_pos(&stack, pos);
@@ -362,8 +216,8 @@ int			main(int argc, char **argv)
 				*/
 			}
 		}
-		ft_putstr_fd("FINAL\n", STDOUT);
-		print_lsts(&stack);
+		free(pos);
+		//print_lsts(&stack);
 		clear_lsts(&stack);
 	}
 	return (0);

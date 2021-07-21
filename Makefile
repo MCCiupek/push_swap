@@ -10,31 +10,23 @@ DIR_HEADERS =	./includes/
 
 DIR_SRCS =		./srcs/
 
-#MLX_DIR = 		./
-
-#MLX_HEADER = 	/usr/local/include/
-
-#MLX_LIB = 		/usr/local/lib/
-
-#MLX_FLAGS	=	-lmlx
-
 MACOS_FLAGS =	-framework OpenGL -framework AppKit
 
 LINUX_FLAGS =	-lXext -lX11 -lm
 
-#LIBMLX =		libmlx.a
-
 LIBFT =			libft.a
 
-FSAN =			-fsanitize=address
+#FSAN =			-fsanitize=address
 
-SRC =			main.c \
+SRC =			main2.c \
 				swap.c \
 				push.c \
 				rotate.c \
 				reverse_rotate.c \
-
-#SRC_BONUS =		main.c
+				markups.c \
+				print.c \
+				utils.c \
+				check_args.c
 
 SRCS =			$(addprefix $(DIR_SRCS), $(SRC))
 
