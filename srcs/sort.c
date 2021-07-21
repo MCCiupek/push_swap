@@ -52,7 +52,7 @@ static void	b_to_a(t_stack *stack)
 	}
 }
 
-static void reorder_a(t_stack *stack)
+static void	reorder_a(t_stack *stack)
 {
 	while (((t_elem *)stack->a->content)->idx)
 		ra(stack);

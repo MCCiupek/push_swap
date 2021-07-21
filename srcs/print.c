@@ -36,7 +36,6 @@ void	print_lst(t_list *lst)
 			printf("(null) ");
 		lst = lst->next;
 	}
-	//printf("\t\t [%d]", is_sorted_incorder(lst));
 	printf("\n\n");
 }
 

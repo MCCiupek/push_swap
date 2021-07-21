@@ -52,7 +52,8 @@ int	ft_non_digit(char **tab)
 	while (tab[i])
 	{
 		j = 0;
-		if (!ft_isdigit(tab[i][j]) && !(ft_strchr("+-", tab[i][j]) && ft_isdigit(tab[i][j + 1])))
+		if (!ft_isdigit(tab[i][j]) && !(ft_strchr("+-", tab[i][j])
+			&& ft_isdigit(tab[i][j + 1])))
 			return (1);
 		while (tab[i][++j])
 			if (!ft_isdigit(tab[i][j]))
@@ -62,22 +63,12 @@ int	ft_non_digit(char **tab)
 	return (0);
 }
 
-int	ft_tab_to_lst(char **tab, t_stack *stack)
+static void	init_a(char **tab, t_stack *stack)
 {
 	int		i;
 	t_elem	*elem;
 
 	i = 1;
-	if (!tab[1][0])
-		return (0);
-	if (ft_is_not_int(&tab[1]) || ft_is_rep(&tab[1]) ||
-			ft_non_digit(&tab[1]))
-	{
-		ft_putstr_fd("Error\n", STDERR);
-		return (0);
-	}
-	if (ft_arraysize(&tab[1]) < 2)
-		return (0);
 	while (tab[i])
 	{
 		elem = (t_elem *)malloc(sizeof(t_elem));
@@ -88,6 +79,21 @@ int	ft_tab_to_lst(char **tab, t_stack *stack)
 		elem->is_head = 0;
 		ft_lstadd_back(&stack->a, ft_lstnew(elem));
 	}
+}
+
+int	ft_tab_to_lst(char **tab, t_stack *stack)
+{
+	if (!tab[1][0])
+		return (0);
+	if (ft_is_not_int(&tab[1]) || ft_is_rep(&tab[1])
+		|| ft_non_digit(&tab[1]))
+	{
+		ft_putstr_fd("Error\n", STDERR);
+		return (0);
+	}
+	if (ft_arraysize(&tab[1]) < 2)
+		return (0);
+	init_a(tab, stack);
 	if (is_sorted_incorder(stack->a))
 	{
 		ft_lstclear(&stack->a, free);

@@ -14,7 +14,7 @@
 
 static int	ft_rotate(t_list **lst)
 {
-	t_list  *tmp;
+	t_list	*tmp;
 
 	if (is_empty(*lst))
 		return (1);
@@ -25,19 +25,19 @@ static int	ft_rotate(t_list **lst)
 	return (0);
 }
 
-int 		ra(t_stack *stack)
+int	ra(t_stack *stack)
 {
 	ft_putstr_fd("ra\n", 1);
 	return (ft_rotate(&stack->a));
 }
 
-int 		rb(t_stack *stack)
+int	rb(t_stack *stack)
 {
 	ft_putstr_fd("rb\n", 1);
 	return (ft_rotate(&stack->b));
 }
 
-int 		rr(t_stack *stack)
+int	rr(t_stack *stack)
 {
 	ft_putstr_fd("rr\n", 1);
 	return (ft_rotate(&stack->a) + ft_rotate(&stack->b));

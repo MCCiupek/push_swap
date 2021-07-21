@@ -22,7 +22,7 @@
 
 # include "../libft/libft.h"
 
-typedef struct	s_elem
+typedef struct s_elem
 {
 	int	nb;
 	int	idx;
@@ -31,14 +31,14 @@ typedef struct	s_elem
 	int	is_head;
 }				t_elem;
 
-typedef struct	s_stack
+typedef struct s_stack
 {
 	t_list		*a;
 	t_list		*b;
-	size_t	size;
+	size_t		size;
 }				t_stack;
 
-typedef enum	e_pos
+typedef enum e_pos
 {
 	A_1,
 	B_1,
@@ -57,10 +57,9 @@ void			ft_sort(t_stack *stack);
 int				is_empty(t_list *lst);
 int				is_sorted_incorder(t_list *lst);
 int				is_sorted_decorder(t_list *lst);
-int				max(long long pos[6]);
-int				min(long long pos[6]);
 int				ft_islstmin(t_list *lst);
-t_list			**ft_lstidxminloc(t_list **lst, t_elem *elem, int index, int val);
+t_list			**ft_lstidxminloc(t_list **lst,
+					t_elem *elem, int index, int val);
 int				ft_rotate_a(t_stack *stack);
 int				ft_rotate_order(t_list *lst);
 int				ft_min_idx(t_list *lst);

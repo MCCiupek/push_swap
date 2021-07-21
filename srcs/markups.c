@@ -12,87 +12,13 @@
 
 #include "push_swap.h"
 
-void	*ft_lstcpy(void *ptr)
+static int	set_indices(t_list *elem)
 {
-	void	*new;
-
-	new = (void *)malloc(sizeof(ptr));
-	new = ft_memcpy(new, ptr, sizeof(ptr));
-	return (new);
-}
-
-t_list	*ft_lstswaped(t_list *lst)
-{
-	t_list	*swaped_list;
-	t_list	*tmp;
-
-	swaped_list = ft_lstmap(lst, ft_lstcpy, free);
-	tmp = swaped_list->content;
-	swaped_list->content = swaped_list->next->content;
-	swaped_list->next->content = tmp;
-	update_markups(swaped_list);
-	return (swaped_list);
-}
-
-int	swap_is_needed(t_list *lst)
-{
-	t_list	*swaped_list;
-	int		nb_false_bf_sa;
-	int		nb_false_af_sa;
-
-	swaped_list = ft_lstswaped(lst);
-	nb_false_bf_sa = count_false(lst);
-	nb_false_af_sa = count_false(swaped_list);
-	//print_lst(lst);
-	//print_lst(swaped_list);
-	ft_lstclear(&swaped_list, free);
-	if (nb_false_bf_sa > nb_false_af_sa)
-		return (1);
-	return (0);
-}
-
-void	update_markups(t_list *lst)
-{
-	t_list	*tmp;
-
-	tmp = lst;
-	while (tmp)
-		if (!((t_elem *)tmp->content)->is_head)
-			tmp = tmp->next;
-		else
-			break ;
-	get_markup(tmp, lst);
-}
-
-int	count_false(t_list *lst)
-{
-	t_list	*tmp;
-	int		i;
-
-	tmp = lst;
-	i = 0;
-	while (tmp)
-	{
-		if (((t_elem *)tmp->content)->markup == 0)
-			i++;
-		tmp = tmp->next;
-	}
-	return (i);
-}
-
-int	get_markup(t_list *elem, t_list *head)
-{
-	int		cpt;
 	int		idx;
+	int		cpt;
 	t_list	*tmp;
 
 	cpt = 0;
-	tmp = head;
-	while (tmp && tmp != elem)
-	{
-		((t_elem *)tmp->content)->markup = 0;
-		tmp = tmp->next;
-	}
 	idx = ((t_elem *)elem->content)->idx;
 	((t_elem *)elem->content)->markup = 1;
 	tmp = elem->next;
@@ -107,10 +33,32 @@ int	get_markup(t_list *elem, t_list *head)
 		else
 			((t_elem *)tmp->content)->markup = 0;
 		tmp = tmp->next;
-		//if (!tmp)
-		//	tmp = head;
 	}
 	return (cpt);
+}
+
+int	get_markup(t_list *elem, t_list *head)
+{
+	t_list	*tmp;
+
+	tmp = head;
+	while (tmp && tmp != elem)
+	{
+		((t_elem *)tmp->content)->markup = 0;
+		tmp = tmp->next;
+	}
+	return (set_indices(elem));
+}
+
+static int	set_as_head(t_list *tmp, t_list **head)
+{
+	int	max;
+
+	((t_elem *)tmp->content)->is_head = 1;
+	((t_elem *)(*head)->content)->is_head = 0;
+	max = ((t_elem *)tmp->content)->nb_true;
+	*head = tmp->content;
+	return (max);
 }
 
 static void	get_head(t_list *lst)
@@ -126,20 +74,10 @@ static void	get_head(t_list *lst)
 	while (tmp)
 	{
 		if (((t_elem *)tmp->content)->nb_true > max)
-		{
-			((t_elem *)tmp->content)->is_head = 1;
-			((t_elem *)head->content)->is_head = 0;
-			max = ((t_elem *)tmp->content)->nb_true;
-			head = tmp->content;
-		}
-		else if (((t_elem *)tmp->content)->nb_true == max &&
-			((t_elem *)tmp->content)->nb < ((t_elem *)head->content)->nb)
-		{
-			((t_elem *)tmp->content)->is_head = 1;
-			((t_elem *)head->content)->is_head = 0;
-			max = ((t_elem *)tmp->content)->nb_true;
-			head = tmp->content;
-		}
+			max = set_as_head(tmp, &head);
+		else if (((t_elem *)tmp->content)->nb_true == max
+			&& ((t_elem *)tmp->content)->nb < ((t_elem *)head->content)->nb)
+			max = set_as_head(tmp, &head);
 		tmp = tmp->next;
 	}
 }

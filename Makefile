@@ -18,14 +18,16 @@ LIBFT =			libft.a
 
 #FSAN =			-fsanitize=address
 
-SRC =			main2.c \
+SRC =			main.c \
 				swap.c \
 				push.c \
 				rotate.c \
 				reverse_rotate.c \
 				markups.c \
+				markups_utils.c \
 				print.c \
 				utils.c \
+				utils2.c \
 				sort.c \
 				check_args.c
 
