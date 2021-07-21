@@ -35,10 +35,11 @@ static void	a_to_b(t_stack *stack)
 static void	b_to_a(t_stack *stack)
 {
 	int	order;
+	int cpt = 0;
 
 	while (!is_empty(stack->b))
 	{
-		while (ft_rotate_a(stack))
+		while (cpt++ < 20 && ft_rotate_a(stack))
 			ra(stack);
 		while (((t_elem *)stack->b->content)->idx != ft_min_idx(stack->b))
 		{

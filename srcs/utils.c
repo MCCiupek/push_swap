@@ -12,19 +12,6 @@
 
 #include "push_swap.h"
 
-t_list	**ft_lstchangeval(t_list **lst, int index, int val)
-{
-	int		i;
-	t_list	*tmp;
-
-	tmp = *lst;
-	i = -1;
-	while (++i < index)
-		tmp = tmp->next;
-	((t_elem *)tmp->content)->idx = val;
-	return (lst);
-}
-
 t_list	**ft_lstidxminloc(t_list **lst, t_elem *elem, int index, int val)
 {
 	t_list	*tmp;
@@ -49,6 +36,12 @@ int	ft_rotate_a(t_stack *stack)
 
 	a = (t_list *)stack->a;
 	b = (t_list *)stack->b;
+	if (ft_max_idx(stack->a) < ft_min_idx(stack->b)
+		&& ((t_elem *)a->content)->idx)
+		return (1);
+	if (ft_max_idx(stack->a) < ft_min_idx(stack->b)
+		&& !((t_elem *)a->content)->idx)
+		return (0);
 	if (((t_elem *)a->content)->idx < ft_min_idx(stack->b))
 		return (1);
 	return (0);
@@ -98,4 +91,22 @@ int	ft_min_idx(t_list *lst)
 		tmp = tmp->next;
 	}
 	return (min);
+}
+
+int	ft_max_idx(t_list *lst)
+{
+	int		max;
+	int		size;
+	t_list	*tmp;
+
+	max = ((t_elem *)lst->content)->idx;
+	size = ft_lstsize(lst);
+	tmp = lst->next;
+	while (tmp)
+	{
+		if (((t_elem *)tmp->content)->idx > max)
+			max = ((t_elem *)tmp->content)->idx;
+		tmp = tmp->next;
+	}
+	return (max);
 }

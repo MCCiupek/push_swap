@@ -54,6 +54,7 @@ void			ft_sort(t_stack *stack);
 
 /* UTILS */
 
+t_list			**ft_lstchangeval(t_list **lst, int index, int val);
 int				is_empty(t_list *lst);
 int				is_sorted_incorder(t_list *lst);
 int				is_sorted_decorder(t_list *lst);
@@ -63,6 +64,7 @@ t_list			**ft_lstidxminloc(t_list **lst,
 int				ft_rotate_a(t_stack *stack);
 int				ft_rotate_order(t_list *lst);
 int				ft_min_idx(t_list *lst);
+int				ft_max_idx(t_list *lst);
 
 /* CHECK_ARGS */
 

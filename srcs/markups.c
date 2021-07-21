@@ -50,15 +50,12 @@ int	get_markup(t_list *elem, t_list *head)
 	return (set_indices(elem));
 }
 
-static int	set_as_head(t_list *tmp, t_list **head)
+static t_list	**set_as_head(t_list **tmp, t_list **head, int *max)
 {
-	int	max;
-
-	((t_elem *)tmp->content)->is_head = 1;
+	((t_elem *)(*tmp)->content)->is_head = 1;
 	((t_elem *)(*head)->content)->is_head = 0;
-	max = ((t_elem *)tmp->content)->nb_true;
-	*head = tmp->content;
-	return (max);
+	*max = ((t_elem *)(*tmp)->content)->nb_true;
+	return (tmp);
 }
 
 static void	get_head(t_list *lst)
@@ -74,10 +71,10 @@ static void	get_head(t_list *lst)
 	while (tmp)
 	{
 		if (((t_elem *)tmp->content)->nb_true > max)
-			max = set_as_head(tmp, &head);
+			head = *set_as_head(&tmp, &head, &max);
 		else if (((t_elem *)tmp->content)->nb_true == max
-			&& ((t_elem *)tmp->content)->nb < ((t_elem *)head->content)->nb)
-			max = set_as_head(tmp, &head);
+			&& ((t_elem *)tmp->content)->idx < ((t_elem *)head->content)->idx)
+			head = *set_as_head(&tmp, &head, &max);
 		tmp = tmp->next;
 	}
 }

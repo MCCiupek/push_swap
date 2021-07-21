@@ -68,3 +68,16 @@ int	ft_islstmin(t_list *lst)
 	}
 	return (0);
 }
+
+t_list	**ft_lstchangeval(t_list **lst, int index, int val)
+{
+	int		i;
+	t_list	*tmp;
+
+	tmp = *lst;
+	i = -1;
+	while (++i < index)
+		tmp = tmp->next;
+	((t_elem *)tmp->content)->idx = val;
+	return (lst);
+}

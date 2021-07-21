@@ -74,8 +74,8 @@ int	main(int argc, char **argv)
 		//if (is_sorted_decorder(stack.a))
 		//	return (dec_to_inc(&stack));
 		get_position(&stack.a);
-		get_markups(&stack.a);
 		//print_lsts(&stack);
+		get_markups(&stack.a);
 		ft_sort(&stack);
 		//print_lsts(&stack);
 		clear_lsts(&stack);
