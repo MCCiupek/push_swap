@@ -14,12 +14,12 @@
 
 static void	a_to_b(t_stack *stack)
 {
-	int	cpt;
+	//int	cpt;
 
-	cpt = 0;
-	while (cpt < 10 && count_false(stack->a))
+	//cpt = 0;
+	while (count_false(stack->a))
 	{
-		cpt++;
+		//cpt++;
 		if (swap_is_needed(stack->a))
 		{
 			sa(stack);
@@ -35,11 +35,11 @@ static void	a_to_b(t_stack *stack)
 static void	b_to_a(t_stack *stack)
 {
 	int	order;
-	int cpt = 0;
+	//int cpt = 0;
 
 	while (!is_empty(stack->b))
 	{
-		while (cpt++ < 20 && ft_rotate_a(stack))
+		while (ft_rotate_a(stack))
 			ra(stack);
 		while (((t_elem *)stack->b->content)->idx != ft_min_idx(stack->b))
 		{
@@ -55,8 +55,16 @@ static void	b_to_a(t_stack *stack)
 
 static void	reorder_a(t_stack *stack)
 {
+	int	order;
+
+	order = ft_rotate_order(stack->a);
 	while (((t_elem *)stack->a->content)->idx)
-		ra(stack);
+	{
+		if (order == 1)
+			ra(stack);
+		else if (!order)
+			rra(stack);
+	}
 }
 
 void	ft_sort(t_stack *stack)
