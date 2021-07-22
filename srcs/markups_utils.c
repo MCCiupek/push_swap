@@ -43,8 +43,6 @@ int	swap_is_needed(t_list *lst)
 	swaped_list = ft_lstswaped(lst);
 	nb_false_bf_sa = count_false(lst);
 	nb_false_af_sa = count_false(swaped_list);
-	//print_lst(lst);
-	//print_lst(swaped_list);
 	ft_lstclear(&swaped_list, free);
 	if (nb_false_bf_sa > nb_false_af_sa)
 		return (1);

@@ -42,6 +42,12 @@ int	ft_rotate_a(t_stack *stack)
 	if (ft_max_idx(stack->a) < ft_min_idx(stack->b)
 		&& !((t_elem *)a->content)->idx)
 		return (0);
+	if (((t_elem *)b->content)->idx < ft_min_idx(stack->a)
+		&& ((t_elem *)a->content)->idx != ft_min_idx(stack->a))
+		return (1);
+	if (((t_elem *)b->content)->idx < ft_min_idx(stack->a)
+		&& ((t_elem *)a->content)->idx == ft_min_idx(stack->a))
+		return (0);
 	if (((t_elem *)a->content)->idx < ft_min_idx(stack->b))
 		return (1);
 	return (0);

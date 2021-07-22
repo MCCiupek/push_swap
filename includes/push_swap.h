@@ -51,6 +51,7 @@ typedef enum e_pos
 /* SORT */
 
 void			ft_sort(t_stack *stack);
+void			ft_sort3(t_stack *stack);
 
 /* UTILS */
 

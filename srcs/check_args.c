@@ -68,7 +68,7 @@ static void	init_a(char **tab, t_stack *stack)
 	int		i;
 	t_elem	*elem;
 
-	i = 1;
+	i = 0;
 	while (tab[i])
 	{
 		elem = (t_elem *)malloc(sizeof(t_elem));
@@ -83,15 +83,15 @@ static void	init_a(char **tab, t_stack *stack)
 
 int	ft_tab_to_lst(char **tab, t_stack *stack)
 {
-	if (!tab[1][0])
+	if (!tab[0][0])
 		return (0);
-	if (ft_is_not_int(&tab[1]) || ft_is_rep(&tab[1])
-		|| ft_non_digit(&tab[1]))
+	if (ft_is_not_int(&tab[0]) || ft_is_rep(&tab[0])
+		|| ft_non_digit(&tab[0]))
 	{
 		ft_putstr_fd("Error\n", STDERR);
 		return (0);
 	}
-	if (ft_arraysize(&tab[1]) < 2)
+	if (ft_arraysize(&tab[0]) < 2)
 		return (0);
 	init_a(tab, stack);
 	if (is_sorted_incorder(stack->a))

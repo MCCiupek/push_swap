@@ -67,15 +67,20 @@ static int	dec_to_inc(t_stack *stack)
 int	main(int argc, char **argv)
 {
 	t_stack	stack;
+	char	**tab;
 
 	init_stack(&stack, argc);
-	if (ft_tab_to_lst(argv, &stack))
+	if (argc == 2)
+		tab = ft_split(argv[1], ' ');
+	else
+		tab = &argv[1];
+	if (ft_tab_to_lst(tab, &stack))
 	{
 		//if (is_sorted_decorder(stack.a))
 		//	return (dec_to_inc(&stack));
 		get_position(&stack.a);
-		//print_lsts(&stack);
 		get_markups(&stack.a);
+		//print_lsts(&stack);
 		ft_sort(&stack);
 		//print_lsts(&stack);
 		clear_lsts(&stack);
