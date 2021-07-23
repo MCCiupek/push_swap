@@ -20,7 +20,7 @@ void	print_lst(t_list *lst)
 	int	markup;
 	int	head;
 
-	printf("nb\t\tpos\t\tmarkup\t\tnb_true\t\thead\n");
+	printf("nb\t\tpos\t\tmarkup\t\tnb_true\t\thead\tbin\n");
 	while (lst)
 	{
 		if (lst->content)
@@ -30,7 +30,11 @@ void	print_lst(t_list *lst)
 			nb_true = ((t_elem *)lst->content)->nb_true;
 			markup = ((t_elem *)lst->content)->markup;
 			head = ((t_elem *)lst->content)->is_head;
-			printf("%d\t\t%d\t\t%d\t\t%d\t\t%d\n", nb, idx, markup, nb_true, head);
+			printf("%d\t\t%d\t\t%d\t\t%d\t\t%d\t", nb, idx, markup, nb_true, head);
+			int i = 0;
+			while (i < 32)
+				printf("%d", ((t_elem *)lst->content)->bin[i++]);
+			printf("\n");
 		}
 		else
 			printf("(null) ");

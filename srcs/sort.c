@@ -16,7 +16,7 @@ static void	reorder_a(t_stack *stack)
 {
 	int	order;
 
-	order = ft_rotate_order(stack->a);
+	order = ft_rotate_order_min(stack->a);
 	while (((t_elem *)stack->a->content)->idx != ft_min_idx(stack->a))
 	{
 		if (order == 1)
@@ -59,13 +59,19 @@ static void	b_to_a(t_stack *stack)
 
 	while (!is_empty(stack->b))
 	{
+		if (((t_elem *)stack->b->content)->idx > ((t_elem *)ft_lstlast(stack->a))->idx)
+		{
+			pa(stack);
+			ra(stack);
+			continue ;
+		}
 		while (ft_rotate_a(stack))
 			ra(stack);
-		if (stack->b->next && ((t_elem *)stack->b->content)->idx > ((t_elem *)stack->b->next->content)->idx)
-			sb(stack);
+		//if (stack->b->next && ((t_elem *)stack->b->content)->idx > ((t_elem *)stack->b->next->content)->idx)
+		//	sb(stack);
 		while (((t_elem *)stack->b->content)->idx != ft_min_idx(stack->b))
 		{
-			order = ft_rotate_order(stack->b);
+			order = ft_rotate_order_min(stack->b);
 			if (order == 1)
 				rb(stack);
 			else if (!order)
@@ -83,8 +89,6 @@ void	ft_sort5(t_stack *stack)
 	pb(stack);
 	pb(stack);
 	ft_sort3(stack);
-	if (((t_elem *)stack->b->content)->idx > ((t_elem *)stack->b->next->content)->idx)
-		sb(stack);
 /*	while (!is_empty(stack->b))
 	{
 		top_a = ((t_elem *)stack->a->content)->idx;
@@ -104,7 +108,8 @@ void	ft_sort(t_stack *stack)
 		return (ft_sort3(stack));
 	if (ft_lstsize(stack->a) == 5)
 		return (ft_sort5(stack));
-	a_to_b(stack);
-	b_to_a(stack);
-	reorder_a(stack);
+	return ;
+	//a_to_b(stack);
+	//b_to_a(stack);
+	//reorder_a(stack);
 }

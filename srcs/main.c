@@ -55,15 +55,6 @@ static void	get_position(t_list **lst)
 	}
 }
 
-static int	dec_to_inc(t_stack *stack)
-{
-	while (!is_empty(stack->a))
-		pb(stack);
-	while (!is_empty(stack->b))
-		pa(stack);
-	return (0);
-}
-
 int	main(int argc, char **argv)
 {
 	t_stack	stack;
@@ -76,12 +67,13 @@ int	main(int argc, char **argv)
 		tab = &argv[1];
 	if (ft_tab_to_lst(tab, &stack))
 	{
-		//if (is_sorted_decorder(stack.a))
-		//	return (dec_to_inc(&stack));
 		get_position(&stack.a);
 		get_markups(&stack.a);
 		//print_lsts(&stack);
-		ft_sort(&stack);
+		if (ft_lstsize(stack.a) < 6)
+			ft_sort(&stack);
+		else
+			ft_radix(&stack);
 		//print_lsts(&stack);
 		clear_lsts(&stack);
 	}

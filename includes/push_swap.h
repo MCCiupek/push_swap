@@ -26,6 +26,7 @@ typedef struct s_elem
 {
 	int	nb;
 	int	idx;
+	int	bin[32];
 	int	markup;
 	int	nb_true;
 	int	is_head;
@@ -52,6 +53,8 @@ typedef enum e_pos
 
 void			ft_sort(t_stack *stack);
 void			ft_sort3(t_stack *stack);
+void			ft_dec2bin(int val, int bin[32]);
+void			ft_radix(t_stack *stack);
 
 /* UTILS */
 

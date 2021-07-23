@@ -29,6 +29,7 @@ SRC =			main.c \
 				utils.c \
 				utils2.c \
 				sort.c \
+				radix.c \
 				sort3.c \
 				check_args.c
 

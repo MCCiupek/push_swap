@@ -79,5 +79,6 @@ t_list	**ft_lstchangeval(t_list **lst, int index, int val)
 	while (++i < index)
 		tmp = tmp->next;
 	((t_elem *)tmp->content)->idx = val;
+	ft_dec2bin(val, ((t_elem *)tmp->content)->bin);
 	return (lst);
 }
