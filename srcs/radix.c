@@ -42,10 +42,9 @@ static int	all_bits_eq(t_list *lst, int i, int eq)
 
 void	ft_radix(t_stack *stack)
 {
-    int		i;
+	int		i;
 	int		j;
 	int		size;
-    t_elem	*top_a;
 
 	i = 32;
 	while (--i)
@@ -56,9 +55,7 @@ void	ft_radix(t_stack *stack)
 		size = ft_lstsize(stack->a);
 		while (j++ < size)
 		{
-			top_a = (t_elem *)stack->a->content;
-			//printf("%d/%d | bin[%d]: %d\n", top_a->idx, ft_lstsize(stack->a), i, top_a->bin[i]);
-			if (!top_a->bin[i])
+			if (!((t_elem *)stack->a->content)->bin[i])
 				pb(stack);
 			else
 				ra(stack);
@@ -67,6 +64,5 @@ void	ft_radix(t_stack *stack)
 			pa(stack);
 		if (is_sorted_incorder(stack->a))
 			break ;
-		//print_lsts(stack);
 	}
 }

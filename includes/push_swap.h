@@ -36,16 +36,6 @@ typedef struct s_stack
 	size_t		size;
 }				t_stack;
 
-typedef enum e_pos
-{
-	A_1,
-	B_1,
-	A_2,
-	B_2,
-	A_N,
-	B_N
-}				t_pos;
-
 /* SORT */
 
 void			ft_sort(t_stack *stack);
