@@ -31,6 +31,8 @@ int				ft_atoi(const char *str);
 long long			ft_atol(const char *str);
 float			ft_atof(const char *str);
 size_t			ft_arraysize(char **tab);
+char			**ft_copy_array(char **tab);
+void			ft_free_array(char **tab);
 int				ft_strlen(const char *str);
 int				ft_isalpha(int ch);
 int				ft_isdigit(int ch);

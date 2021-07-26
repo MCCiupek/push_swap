@@ -37,7 +37,6 @@ void	ft_sort3(t_stack *stack)
 	int	n_case;
 
 	n_case = ft_select_case(stack);
-	//printf("case: %d\n", n_case);
 	if (n_case == 1)
 		sa(stack);
 	if (n_case == 2)

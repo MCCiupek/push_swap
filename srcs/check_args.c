@@ -74,24 +74,21 @@ static void	init_a(char **tab, t_stack *stack)
 		elem = (t_elem *)malloc(sizeof(t_elem));
 		elem->nb = ft_atoi(tab[i++]);
 		elem->idx = -1;
-		elem->markup = 0;
-		elem->nb_true = 0;
-		elem->is_head = 0;
 		ft_lstadd_back(&stack->a, ft_lstnew(elem));
 	}
 }
 
 int	ft_tab_to_lst(char **tab, t_stack *stack)
 {
-	if (!tab[0][0])
+	if (!tab || !tab[0][0])
 		return (0);
-	if (ft_is_not_int(&tab[0]) || ft_is_rep(&tab[0])
-		|| ft_non_digit(&tab[0]))
+	if (ft_is_not_int(tab) || ft_is_rep(tab)
+		|| ft_non_digit(tab))
 	{
 		ft_putstr_fd("Error\n", STDERR);
 		return (0);
 	}
-	if (ft_arraysize(&tab[0]) < 2)
+	if (ft_arraysize(tab) < 2)
 		return (0);
 	init_a(tab, stack);
 	if (is_sorted_incorder(stack->a))

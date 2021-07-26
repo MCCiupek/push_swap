@@ -61,14 +61,15 @@ int	main(int argc, char **argv)
 	char	**tab;
 
 	init_stack(&stack, argc);
+	if (argc == 1 || !argv[1][0])
+		return (0);
 	if (argc == 2)
 		tab = ft_split(argv[1], ' ');
 	else
-		tab = &argv[1];
+		tab = ft_copy_array(&argv[1]);
 	if (ft_tab_to_lst(tab, &stack))
 	{
 		get_position(&stack.a);
-		get_markups(&stack.a);
 		//print_lsts(&stack);
 		if (ft_lstsize(stack.a) < 6)
 			ft_sort(&stack);
@@ -77,5 +78,6 @@ int	main(int argc, char **argv)
 		//print_lsts(&stack);
 		clear_lsts(&stack);
 	}
+	ft_free_array(tab);
 	return (0);
 }

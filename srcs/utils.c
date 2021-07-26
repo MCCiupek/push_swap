@@ -53,34 +53,6 @@ int	ft_rotate_a(t_stack *stack)
 	return (0);
 }
 
-int	ft_rotate_order_max(t_list *lst)
-{
-	int		i;
-	int		i_max;
-	int		max;
-	int		size;
-	t_list	*tmp;
-
-	i = 0;
-	i_max = 0;
-	max = ((t_elem *)lst->content)->idx;
-	size = ft_lstsize(lst);
-	tmp = lst->next;
-	while (tmp)
-	{
-		i++;
-		if (((t_elem *)tmp->content)->idx > max)
-		{
-			i_max = i;
-			max = ((t_elem *)tmp->content)->idx;
-		}
-		tmp = tmp->next;
-	}
-	if (!i_max)
-		return (-1);
-	return (i_max < size / 2);
-}
-
 int	ft_rotate_order_min(t_list *lst)
 {
 	int		i;

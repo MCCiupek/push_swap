@@ -23,14 +23,12 @@ SRC =			main.c \
 				push.c \
 				rotate.c \
 				reverse_rotate.c \
-				markups.c \
-				markups_utils.c \
 				print.c \
 				utils.c \
 				utils2.c \
 				sort.c \
-				radix.c \
 				sort3.c \
+				radix.c \
 				check_args.c
 
 SRCS =			$(addprefix $(DIR_SRCS), $(SRC))
