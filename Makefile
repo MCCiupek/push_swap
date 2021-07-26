@@ -2,7 +2,7 @@ SHELL :=		/bin/bash
 
 CC =			clang
 
-FLAGS =			-Wall -Wextra #-Werror -g
+FLAGS =			-Wall -Wextra -Werror -g
 
 RM =			rm -rf
 
@@ -23,7 +23,6 @@ SRC =			main.c \
 				push.c \
 				rotate.c \
 				reverse_rotate.c \
-				print.c \
 				utils.c \
 				utils2.c \
 				sort.c \

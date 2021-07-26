@@ -32,7 +32,8 @@ static void	b_to_a(t_stack *stack)
 
 	while (!is_empty(stack->b))
 	{
-		if (((t_elem *)stack->b->content)->idx > ((t_elem *)ft_lstlast(stack->a))->idx)
+		if (((t_elem *)stack->b->content)->idx
+			> ((t_elem *)ft_lstlast(stack->a))->idx)
 		{
 			pa(stack);
 			ra(stack);

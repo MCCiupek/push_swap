@@ -70,12 +70,10 @@ int	main(int argc, char **argv)
 	if (ft_tab_to_lst(tab, &stack))
 	{
 		get_position(&stack.a);
-		//print_lsts(&stack);
 		if (ft_lstsize(stack.a) < 6)
 			ft_sort(&stack);
 		else
 			ft_radix(&stack);
-		//print_lsts(&stack);
 		clear_lsts(&stack);
 	}
 	ft_free_array(tab);
