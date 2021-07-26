@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_strnchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mciupek <mciupek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/23 17:18:26 by mciupek           #+#    #+#             */
-/*   Updated: 2020/11/24 10:53:32 by mciupek          ###   ########.fr       */
+/*   Created: 2021/04/12 14:24:19 by mciupek           #+#    #+#             */
+/*   Updated: 2021/04/12 14:24:24 by mciupek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_lstsize(t_list *lst)
+char	*ft_strnchr(char *s, char *chars)
 {
-	int	size;
+	int	i;
 
-	size = 0;
-	while (lst)
-	{
-		size++;
-		lst = lst->next;
-	}
-	return (size);
+	i = 0;
+	while (!ft_strchr(chars, s[i]))
+		i++;
+	return (&s[i]);
 }

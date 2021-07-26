@@ -19,18 +19,18 @@ static int	ft_spaces(const char *str)
 	i = 0;
 	while ((str[i] < '0' || str[i] > '9') && str[i] != '-' && str[i] != '+')
 	{
-		if (str[i] != '\t' && str[i] != '\n' && str[i] != '\v' &&
-			str[i] != '\f' && str[i] != '\r' && str[i] != ' ')
+		if (str[i] != '\t' && str[i] != '\n' && str[i] != '\v'
+			&& str[i] != '\f' && str[i] != '\r' && str[i] != ' ')
 			return (-1);
 		i++;
 	}
 	return (i);
 }
 
-long long		ft_atol(const char *str)
+long long	ft_atol(const char *str)
 {
-	int		i;
-	int		signe;
+	int			i;
+	int			signe;
 	long long	nb;
 
 	i = ft_spaces(str);

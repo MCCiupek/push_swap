@@ -20,7 +20,7 @@
 # include <stdlib.h>
 # include "get_next_line.h"
 
-typedef struct	s_list
+typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
@@ -28,7 +28,7 @@ typedef struct	s_list
 }				t_list;
 
 int				ft_atoi(const char *str);
-long long			ft_atol(const char *str);
+long long		ft_atol(const char *str);
 float			ft_atof(const char *str);
 size_t			ft_arraysize(char **tab);
 char			**ft_copy_array(char **tab);
@@ -78,5 +78,12 @@ void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void*));
 int				get_next_line(int fd, char **line);
+int				ft_countchar(char *s, char c);
+int				ft_iseven(int nb);
+int				ft_locnchr(char *s, char *chars);
+void			ft_putstr_fd_without_char(char *s, int fd, char c);
+char			*ft_skipchar(char *s, int i);
+char			*ft_strmbtok(char *str, char *sep, char *quotes, int redir);
+char			*ft_strnchr(char *s, char *chars);
 
 #endif

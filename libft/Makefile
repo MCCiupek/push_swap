@@ -54,6 +54,14 @@ SRCS		= ft_memset.c\
 		ft_arraysize.c\
 		ft_free_array.c\
 		ft_copy_array.c\
+		ft_countchar.c\
+		ft_iseven.c\
+		ft_locnchr.c\
+		ft_putstr_fd_without_char.c\
+		ft_skipchar.c\
+		ft_strmbtok.c\
+		ft_strnchr.c\
+		
 
 BONUS		= ft_lstnew.c\
 		ft_lstadd_front.c\

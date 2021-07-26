@@ -70,7 +70,7 @@ int	main(int argc, char **argv)
 	if (ft_tab_to_lst(tab, &stack))
 	{
 		get_position(&stack.a);
-		if (ft_lstsize(stack.a) < 6)
+		if (ft_lstsize(stack.a) == 3 || ft_lstsize(stack.a) == 5)
 			ft_sort(&stack);
 		else
 			ft_radix(&stack);

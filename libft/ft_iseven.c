@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_iseven.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mciupek <mciupek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mciupek <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/23 17:18:26 by mciupek           #+#    #+#             */
-/*   Updated: 2020/11/24 10:53:32 by mciupek          ###   ########.fr       */
+/*   Created: 2021/03/23 16:47:51 by mciupek           #+#    #+#             */
+/*   Updated: 2021/03/23 16:47:54 by mciupek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_lstsize(t_list *lst)
+int	ft_iseven(int nb)
 {
-	int	size;
-
-	size = 0;
-	while (lst)
-	{
-		size++;
-		lst = lst->next;
-	}
-	return (size);
+	return (nb % 2 == 0);
 }

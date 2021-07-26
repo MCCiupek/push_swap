@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_countchar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mciupek <mciupek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mciupek <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/23 17:18:26 by mciupek           #+#    #+#             */
-/*   Updated: 2020/11/24 10:53:32 by mciupek          ###   ########.fr       */
+/*   Created: 2021/03/23 16:47:51 by mciupek           #+#    #+#             */
+/*   Updated: 2021/03/23 16:47:54 by mciupek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_lstsize(t_list *lst)
+int	ft_countchar(char *s, char c)
 {
-	int	size;
+	int	i;
 
-	size = 0;
-	while (lst)
-	{
-		size++;
-		lst = lst->next;
-	}
-	return (size);
+	i = 0;
+	if (!s || !c)
+		return (0);
+	while (s[i] == c)
+		i++;
+	return (i);
 }
