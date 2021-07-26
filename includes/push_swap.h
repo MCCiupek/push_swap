@@ -18,7 +18,6 @@
 # define STDERR 2
 
 # include <unistd.h>
-//# include <stdio.h>
 
 # include "../libft/libft.h"
 
