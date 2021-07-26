@@ -82,11 +82,13 @@ OBJBONUS	= $(addprefix $(DIR), $(BONUS:.c=.o))
 
 $(DIR)%.o:	$(DIR)%.c
 	$(CC) $(FLAGS) -o $@ -c $<
+	printf "$(GREEN)██"
 
-$(NAME):	$(OBJ)
+
+$(NAME):	echoCL $(OBJ) echoOK echoCS
 	ar rcs $(NAME) $(OBJ)
 
-bonus:		$(OBJ) $(OBJBONUS)
+bonus:		echoCL $(OBJ) $(OBJBONUS) echoOK echoCS
 	ar rcs $(NAME) $(OBJ) $(OBJBONUS)
 
 all:		$(NAME)
@@ -94,9 +96,37 @@ all:		$(NAME)
 clean:
 	rm -f $(OBJ) $(OBJBONUS)
 
-fclean:		clean
+fclean:		clean echoCLEAN
 	rm -f $(NAME)
 
 re:			fclean all
 
 .PHONY:		all clean fclean re
+
+.SILENT:
+
+# COLOR
+#----------------reset----------------#
+NC = \033[0m
+
+#-----------Regular Colors------------#
+BLACK = \033[0;30m
+RED = \033[0;31m
+GREEN = \033[32m
+YELLOW = \033[33;33m
+BLUE = \033[0;34m
+PURPLE = \033[1;35m
+CYAN = \033[1;36m
+WHITE = \033[0;37m
+
+###########################ECHO
+echoCL:
+	printf "\n$(YELLOW)===> Compiling $(RED)$(NAME)$(NC)\n"
+echoOK:
+	printf "$(GREEN) OK$(NC)\n"
+echoCS :
+	printf "$(GREEN)===> Compilation Success$(NC)\n"
+echoCLEAN :
+	printf "$(PURPLE)$(NAME) ===> Cleanning$(NC)\n"
+echoFCLEAN :
+	printf "$(PURPLE)$(NAME) ===> Cleanning Exec & Lib$(NC)\n"

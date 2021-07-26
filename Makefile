@@ -53,28 +53,27 @@ ifeq ($(UNAME),Linux)
 endif
 
 all:			$(NAME)
-				@echo "Compiled "$(NAME)" successfully!"
 
-$(NAME) :		$(OBJS)
-				@$(MAKE) -C ./libft bonus
-				@cp ./libft/$(LIBFT) $(LIBFT)
-				@$(CC) $(COMPIL) $(OS) $(OBJS) -L $(LIB)libft -lft  -lncurses -o $(NAME)
+$(NAME) :		echoCL $(OBJS) echoOK echoCS
+				$(MAKE) -C ./libft bonus
+				cp ./libft/$(LIBFT) $(LIBFT)
+				$(CC) $(COMPIL) $(OS) $(OBJS) -L $(LIB)libft -lft  -lncurses -o $(NAME)
 
 %.o: %.c
-				@$(CC) $(FLAGS) $(OS) -I $(DIR_HEADERS) -c $< -o $@
-				@echo "Compiled "$<" successfully!"
+				$(CC) $(FLAGS) $(OS) -I $(DIR_HEADERS) -c $< -o $@
+				printf "$(GREEN)██"
 
-bonus:			$(OBJS_BONUS)
-				@$(MAKE) -C ./libft bonus
-				@cp ./libft/$(LIBFT) $(LIBFT)
-				@$(CC) $(COMPIL) $(OS) $(OBJS_BONUS) -L $(LIB)libft -lft -lncurses -o $(NAME)
+bonus:			echoCL $(OBJS_BONUS) echoOK echoCS
+				$(MAKE) -C ./libft bonus
+				cp ./libft/$(LIBFT) $(LIBFT)
+				$(CC) $(COMPIL) $(OS) $(OBJS_BONUS) -L $(LIB)libft -lft -lncurses -o $(NAME)
 
 norme:			fclean
 				norminette $(DIR_SRCS)
 				norminette $(DIR_HEADERS)
 				norminette ./libft/
 
-clean:
+clean:			echoCLEAN
 				$(MAKE) -C ./libft clean
 				$(RM) $(OBJS) $(OBJS_BONUS)
 
@@ -92,3 +91,31 @@ git:			fclean
 re:				fclean all
 
 .PHONY:			all, clean, fclean, re, norme, git, bonus
+
+.SILENT:
+
+# COLOR
+#----------------reset----------------#
+NC = \033[0m
+
+#-----------Regular Colors------------#
+BLACK = \033[0;30m
+RED = \033[0;31m
+GREEN = \033[32m
+YELLOW = \033[33;33m
+BLUE = \033[0;34m
+PURPLE = \033[1;35m
+CYAN = \033[1;36m
+WHITE = \033[0;37m
+
+###########################ECHO
+echoCL:
+	printf "\n$(YELLOW)===> Compiling $(RED)$(NAME)$(NC)\n"
+echoOK:
+	printf "$(GREEN) OK$(NC)\n"
+echoCS :
+	printf "$(GREEN)===> Compilation Success$(NC)\n"
+echoCLEAN :
+	printf "$(PURPLE)$(NAME) ===> Cleanning$(NC)\n"
+echoFCLEAN :
+	printf "$(PURPLE)$(NAME) ===> Cleanning Exec & Lib$(NC)\n"
