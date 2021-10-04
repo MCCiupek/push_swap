@@ -16,9 +16,9 @@ This project will make you sort data on a stack, with a limited set of instructi
 ## Chosen Algorithm
 Binary Radix sort
 
-![Decimal Radix Sort Algorithm](https://user-images.githubusercontent.com/51337012/135825596-4a7d9302-b427-4605-82f8-94138f181dd8.png)
+![Decimal Radix Sort Algorithm](https://thumbs.gfycat.com/QuestionableHauntingFlatfish-size_restricted.gif)
 
-![Radix Sorting](https://user-images.githubusercontent.com/51337012/135825492-beb385ef-1aa8-4d19-87c0-fb3afa1c7988.png)
+![Radix Sorting](https://i.makeagif.com/media/7-17-2016/hlfsiC.gif)
 
 ## References
 * https://youtu.be/nu4gDuFabIM
